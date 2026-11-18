@@ -1,0 +1,3454 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <!-- Google Consent Mode v2 (basic): denied by default, tags load only after opt-in. -->
+  <script>
+    (function () {
+      'use strict';
+      const GA_ID = 'G-Z82E6N2X9';
+      const CONSENT_KEY = 'estantedeia_analytics_consent_v1';
+      let analyticsLoaded = false;
+      let analyticsAllowed = false;
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      // Must precede the Google tag and any analytics config/events.
+      window.gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500
+      });
+      window.gtag('set', 'ads_data_redaction', true);
+
+      function savedChoice() {
+        try { return localStorage.getItem(CONSENT_KEY); } catch (_) { return null; }
+      }
+      function persistChoice(choice) {
+        try { localStorage.setItem(CONSENT_KEY, choice); } catch (_) { /* storage unavailable */ }
+      }
+
+      function activateAnalytics() {
+        if (analyticsLoaded) return;
+        analyticsAllowed = true;
+        analyticsLoaded = true;
+        window.gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+        window.gtag('js', new Date());
+        window.gtag('config', GA_ID);
+        const tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+        document.head.appendChild(tag);
+      }
+
+      function choose(choice) {
+        persistChoice(choice);
+        const banner = document.getElementById('analytics-consent-banner');
+        if (banner) banner.hidden = true;
+        if (choice === 'accepted') {
+          activateAnalytics();
+        } else {
+          analyticsAllowed = false;
+          window.gtag('consent', 'update', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          });
+          // If a previously accepted visitor revokes consent, unload GA with a refresh.
+          if (analyticsLoaded) window.location.reload();
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const choice = savedChoice();
+        const banner = document.getElementById('analytics-consent-banner');
+        if (choice === 'accepted') activateAnalytics();
+        else if (choice !== 'declined' && banner) banner.hidden = false;
+
+        const accept = document.getElementById('analytics-consent-accept');
+        const decline = document.getElementById('analytics-consent-decline');
+        const preferences = document.getElementById('analytics-consent-preferences');
+        if (accept) accept.addEventListener('click', function () { choose('accepted'); });
+        if (decline) decline.addEventListener('click', function () { choose('declined'); });
+        if (preferences) preferences.addEventListener('click', function () {
+          if (banner) banner.hidden = false;
+        });
+
+        // Tracks intent to check out, never a completed purchase.
+        document.querySelectorAll('a[href]').forEach(function (link) {
+          let url;
+          try { url = new URL(link.href, location.href); } catch (_) { return; }
+          if (url.hostname === 'pay.hotmart.com') {
+            link.addEventListener('click', function () {
+              if (analyticsAllowed && typeof window.gtag === 'function') {
+                window.gtag('event', 'clique_checkout_hotmart', {
+                  link_url: url.href,
+                  transport_type: 'beacon'
+                });
+              }
+            });
+          }
+        });
+      });
+    })();
+  </script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>30 Dias para Vender Mais com IA | eBook Oficial</title>
+  <meta name="description" content="Aprenda a utilizar a inteligência artificial para melhorar suas vendas, criar ofertas atrativas e automatizar mensagens com o ChatGPT de forma simples e prática.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="30 Dias para Vender Mais com IA">
+  <meta property="og:description" content="Descubra formas práticas de utilizar ferramentas como o ChatGPT nas suas estratégias de vendas.">
+  <meta property="og:image" content="https://hotmart.s3.amazonaws.com/product_pictures/cedf2ee8-911c-4a3b-a933-c15834d3d795/Code_Generated_Image.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <style>/*! tailwindcss v4.3.5 | MIT License | https://tailwindcss.com */
+@layer properties;
+@layer theme, base, components, utilities;
+@layer theme {
+  :root, :host {
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+    --color-red-400: oklch(70.4% 0.191 22.216);
+    --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
+    --color-gray-600: oklch(44.6% 0.03 256.802);
+    --color-black: #000;
+    --color-white: #fff;
+    --spacing: 0.25rem;
+    --container-sm: 24rem;
+    --container-md: 28rem;
+    --container-xl: 36rem;
+    --container-2xl: 42rem;
+    --container-3xl: 48rem;
+    --container-4xl: 56rem;
+    --container-5xl: 64rem;
+    --container-7xl: 80rem;
+    --text-xs: 0.75rem;
+    --text-xs--line-height: calc(1 / 0.75);
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
+    --text-lg: 1.125rem;
+    --text-lg--line-height: calc(1.75 / 1.125);
+    --text-xl: 1.25rem;
+    --text-xl--line-height: calc(1.75 / 1.25);
+    --text-2xl: 1.5rem;
+    --text-2xl--line-height: calc(2 / 1.5);
+    --text-3xl: 1.875rem;
+    --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+    --tracking-tight: -0.025em;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --leading-tight: 1.25;
+    --leading-relaxed: 1.625;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --blur-sm: 8px;
+    --blur-md: 12px;
+    --blur-xl: 24px;
+    --blur-3xl: 64px;
+    --default-transition-duration: 150ms;
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --default-font-family: var(--font-sans);
+    --default-mono-font-family: var(--font-mono);
+  }
+}
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+  html, :host {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    font-family: var(--default-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
+    font-feature-settings: var(--default-font-feature-settings, normal);
+    font-variation-settings: var(--default-font-variation-settings, normal);
+    -webkit-tap-highlight-color: transparent;
+  }
+  hr {
+    height: 0;
+    color: inherit;
+    border-top-width: 1px;
+  }
+  abbr:where([title]) {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  a {
+    color: inherit;
+    -webkit-text-decoration: inherit;
+    text-decoration: inherit;
+  }
+  b, strong {
+    font-weight: bolder;
+  }
+  code, kbd, samp, pre {
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
+    font-size: 1em;
+  }
+  small {
+    font-size: 80%;
+  }
+  sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+  sup {
+    top: -0.5em;
+  }
+  table {
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+  }
+  :-moz-focusring:where(:not(iframe)) {
+    outline: auto;
+  }
+  progress {
+    vertical-align: baseline;
+  }
+  summary {
+    display: list-item;
+  }
+  ol, ul, menu {
+    list-style: none;
+  }
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: block;
+    vertical-align: middle;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+  button, input, select, optgroup, textarea, ::file-selector-button {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border-radius: 0;
+    background-color: transparent;
+    opacity: 1;
+  }
+  :where(select:is([multiple], [size])) optgroup {
+    font-weight: bolder;
+  }
+  :where(select:is([multiple], [size])) optgroup option {
+    padding-inline-start: 20px;
+  }
+  ::file-selector-button {
+    margin-inline-end: 4px;
+  }
+  ::placeholder {
+    opacity: 1;
+  }
+  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
+  }
+  textarea {
+    resize: vertical;
+  }
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+  ::-webkit-date-and-time-value {
+    min-height: 1lh;
+    text-align: inherit;
+  }
+  ::-webkit-datetime-edit {
+    display: inline-flex;
+  }
+  ::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+  }
+  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
+    padding-block: 0;
+  }
+  ::-webkit-calendar-picker-indicator {
+    line-height: 1;
+  }
+  :-moz-ui-invalid {
+    box-shadow: none;
+  }
+  button, input:where([type='button'], [type='reset'], [type='submit']), ::file-selector-button {
+    appearance: button;
+  }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+    height: auto;
+  }
+  [hidden]:where(:not([hidden='until-found'])) {
+    display: none !important;
+  }
+}
+@layer utilities {
+  .pointer-events-none {
+    pointer-events: none;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .fixed {
+    position: fixed;
+  }
+  .relative {
+    position: relative;
+  }
+  .-inset-1 {
+    inset: calc(var(--spacing) * -1);
+  }
+  .inset-0 {
+    inset: 0px;
+  }
+  .-top-12 {
+    top: calc(var(--spacing) * -12);
+  }
+  .-top-24 {
+    top: calc(var(--spacing) * -24);
+  }
+  .top-0 {
+    top: 0px;
+  }
+  .top-4 {
+    top: calc(var(--spacing) * 4);
+  }
+  .right-0 {
+    right: 0px;
+  }
+  .right-4 {
+    right: calc(var(--spacing) * 4);
+  }
+  .left-0 {
+    left: 0px;
+  }
+  .left-1\/2 {
+    left: calc(1 / 2 * 100%);
+  }
+  .z-10 {
+    z-index: 10;
+  }
+  .z-50 {
+    z-index: 50;
+  }
+  .mx-auto {
+    margin-inline: auto;
+  }
+  .mt-0\.5 {
+    margin-top: calc(var(--spacing) * 0.5);
+  }
+  .mt-1 {
+    margin-top: var(--spacing);
+  }
+  .mt-2 {
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .mt-3 {
+    margin-top: calc(var(--spacing) * 3);
+  }
+  .mt-6 {
+    margin-top: calc(var(--spacing) * 6);
+  }
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+  .mb-3 {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+  .mb-4 {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+  .mb-6 {
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+  .mb-8 {
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
+  }
+  .mb-16 {
+    margin-bottom: calc(var(--spacing) * 16);
+  }
+  .flex {
+    display: flex;
+  }
+  .grid {
+    display: grid;
+  }
+  .hidden {
+    display: none;
+  }
+  .inline-block {
+    display: inline-block;
+  }
+  .inline-flex {
+    display: inline-flex;
+  }
+  .h-2 {
+    height: calc(var(--spacing) * 2);
+  }
+  .h-4 {
+    height: calc(var(--spacing) * 4);
+  }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
+  }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
+  .h-12 {
+    height: calc(var(--spacing) * 12);
+  }
+  .h-64 {
+    height: calc(var(--spacing) * 64);
+  }
+  .h-96 {
+    height: calc(var(--spacing) * 96);
+  }
+  .h-auto {
+    height: auto;
+  }
+  .max-h-\[85vh\] {
+    max-height: 85vh;
+  }
+  .max-h-\[90vh\] {
+    max-height: 90vh;
+  }
+  .min-h-\[90vh\] {
+    min-height: 90vh;
+  }
+  .w-2 {
+    width: calc(var(--spacing) * 2);
+  }
+  .w-4 {
+    width: calc(var(--spacing) * 4);
+  }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
+  }
+  .w-6 {
+    width: calc(var(--spacing) * 6);
+  }
+  .w-8 {
+    width: calc(var(--spacing) * 8);
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
+  }
+  .w-12 {
+    width: calc(var(--spacing) * 12);
+  }
+  .w-64 {
+    width: calc(var(--spacing) * 64);
+  }
+  .w-96 {
+    width: calc(var(--spacing) * 96);
+  }
+  .w-full {
+    width: 100%;
+  }
+  .max-w-2xl {
+    max-width: var(--container-2xl);
+  }
+  .max-w-3xl {
+    max-width: var(--container-3xl);
+  }
+  .max-w-4xl {
+    max-width: var(--container-4xl);
+  }
+  .max-w-5xl {
+    max-width: var(--container-5xl);
+  }
+  .max-w-7xl {
+    max-width: var(--container-7xl);
+  }
+  .max-w-full {
+    max-width: 100%;
+  }
+  .max-w-md {
+    max-width: var(--container-md);
+  }
+  .max-w-sm {
+    max-width: var(--container-sm);
+  }
+  .max-w-xl {
+    max-width: var(--container-xl);
+  }
+  .shrink-0 {
+    flex-shrink: 0;
+  }
+  .-translate-x-1\/2 {
+    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .animate-pulse {
+    animation: var(--animate-pulse);
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .cursor-zoom-out {
+    cursor: zoom-out;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .items-start {
+    align-items: flex-start;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .gap-1\.5 {
+    gap: calc(var(--spacing) * 1.5);
+  }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
+  }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
+  }
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
+  }
+  .gap-8 {
+    gap: calc(var(--spacing) * 8);
+  }
+  .gap-12 {
+    gap: calc(var(--spacing) * 12);
+  }
+  :where(.space-y-4 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-6 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-8 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-12 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 12) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 12) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  .rounded-2xl {
+    border-radius: var(--radius-2xl);
+  }
+  .rounded-3xl {
+    border-radius: var(--radius-3xl);
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
+  }
+  .rounded-lg {
+    border-radius: var(--radius-lg);
+  }
+  .rounded-xl {
+    border-radius: var(--radius-xl);
+  }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  .border-0 {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+  }
+  .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-\[\#0ea5e9\]\/20 {
+    border-color: color-mix(in oklab, #0ea5e9 20%, transparent);
+  }
+  .border-\[\#0ea5e9\]\/30 {
+    border-color: color-mix(in oklab, #0ea5e9 30%, transparent);
+  }
+  .border-\[\#10b981\]\/20 {
+    border-color: color-mix(in oklab, #10b981 20%, transparent);
+  }
+  .border-\[\#34d399\]\/20 {
+    border-color: color-mix(in oklab, #34d399 20%, transparent);
+  }
+  .border-white\/5 {
+    border-color: color-mix(in srgb, #fff 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-white) 5%, transparent);
+    }
+  }
+  .border-white\/10 {
+    border-color: color-mix(in srgb, #fff 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+    }
+  }
+  .border-white\/15 {
+    border-color: color-mix(in srgb, #fff 15%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-white) 15%, transparent);
+    }
+  }
+  .border-white\/20 {
+    border-color: color-mix(in srgb, #fff 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-white) 20%, transparent);
+    }
+  }
+  .bg-\[\#0b1322\] {
+    background-color: #0b1322;
+  }
+  .bg-\[\#0b1322\]\/85 {
+    background-color: color-mix(in oklab, #0b1322 85%, transparent);
+  }
+  .bg-\[\#0ea5e9\]\/10 {
+    background-color: color-mix(in oklab, #0ea5e9 10%, transparent);
+  }
+  .bg-\[\#0ea5e9\]\/15 {
+    background-color: color-mix(in oklab, #0ea5e9 15%, transparent);
+  }
+  .bg-\[\#0ea5e9\]\/20 {
+    background-color: color-mix(in oklab, #0ea5e9 20%, transparent);
+  }
+  .bg-\[\#10b981\] {
+    background-color: #10b981;
+  }
+  .bg-\[\#10b981\]\/10 {
+    background-color: color-mix(in oklab, #10b981 10%, transparent);
+  }
+  .bg-\[\#34d399\]\/10 {
+    background-color: color-mix(in oklab, #34d399 10%, transparent);
+  }
+  .bg-\[\#070b12\] {
+    background-color: #070b12;
+  }
+  .bg-black\/60 {
+    background-color: color-mix(in srgb, #000 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);
+    }
+  }
+  .bg-black\/70 {
+    background-color: color-mix(in srgb, #000 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 70%, transparent);
+    }
+  }
+  .bg-black\/90 {
+    background-color: color-mix(in srgb, #000 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 90%, transparent);
+    }
+  }
+  .bg-red-500\/10 {
+    background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-red-500) 10%, transparent);
+    }
+  }
+  .bg-transparent {
+    background-color: transparent;
+  }
+  .bg-white\/5 {
+    background-color: color-mix(in srgb, #fff 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);
+    }
+  }
+  .bg-white\/10 {
+    background-color: color-mix(in srgb, #fff 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+    }
+  }
+  .bg-gradient-to-r {
+    --tw-gradient-position: to right in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
+  .from-\[\#0ea5e9\] {
+    --tw-gradient-from: #0ea5e9;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .from-\[\#38bdf8\] {
+    --tw-gradient-from: #38bdf8;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-\[\#10b981\] {
+    --tw-gradient-to: #10b981;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-\[\#34d399\] {
+    --tw-gradient-to: #34d399;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .bg-clip-text {
+    background-clip: text;
+  }
+  .object-contain {
+    object-fit: contain;
+  }
+  .p-0 {
+    padding: 0px;
+  }
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
+  }
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
+  .p-4 {
+    padding: calc(var(--spacing) * 4);
+  }
+  .p-5 {
+    padding: calc(var(--spacing) * 5);
+  }
+  .p-6 {
+    padding: calc(var(--spacing) * 6);
+  }
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
+  .px-3 {
+    padding-inline: calc(var(--spacing) * 3);
+  }
+  .px-3\.5 {
+    padding-inline: calc(var(--spacing) * 3.5);
+  }
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+  .px-5 {
+    padding-inline: calc(var(--spacing) * 5);
+  }
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+  .py-1 {
+    padding-block: var(--spacing);
+  }
+  .py-1\.5 {
+    padding-block: calc(var(--spacing) * 1.5);
+  }
+  .py-2\.5 {
+    padding-block: calc(var(--spacing) * 2.5);
+  }
+  .py-3 {
+    padding-block: calc(var(--spacing) * 3);
+  }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
+  }
+  .py-5 {
+    padding-block: calc(var(--spacing) * 5);
+  }
+  .py-12 {
+    padding-block: calc(var(--spacing) * 12);
+  }
+  .py-24 {
+    padding-block: calc(var(--spacing) * 24);
+  }
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
+  }
+  .pt-3 {
+    padding-top: calc(var(--spacing) * 3);
+  }
+  .pt-4 {
+    padding-top: calc(var(--spacing) * 4);
+  }
+  .pt-8 {
+    padding-top: calc(var(--spacing) * 8);
+  }
+  .pt-32 {
+    padding-top: calc(var(--spacing) * 32);
+  }
+  .pb-20 {
+    padding-bottom: calc(var(--spacing) * 20);
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+  }
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+  }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+  .text-xl {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
+  .text-xs {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+  .leading-\[1\.08\] {
+    --tw-leading: 1.08;
+    line-height: 1.08;
+  }
+  .leading-relaxed {
+    --tw-leading: var(--leading-relaxed);
+    line-height: var(--leading-relaxed);
+  }
+  .leading-tight {
+    --tw-leading: var(--leading-tight);
+    line-height: var(--leading-tight);
+  }
+  .font-black {
+    --tw-font-weight: var(--font-weight-black);
+    font-weight: var(--font-weight-black);
+  }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
+  .font-extrabold {
+    --tw-font-weight: var(--font-weight-extrabold);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .font-light {
+    --tw-font-weight: var(--font-weight-light);
+    font-weight: var(--font-weight-light);
+  }
+  .font-normal {
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+  }
+  .font-semibold {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
+  .tracking-tight {
+    --tw-tracking: var(--tracking-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+  .tracking-wide {
+    --tw-tracking: var(--tracking-wide);
+    letter-spacing: var(--tracking-wide);
+  }
+  .tracking-wider {
+    --tw-tracking: var(--tracking-wider);
+    letter-spacing: var(--tracking-wider);
+  }
+  .text-\[\#0ea5e9\] {
+    color: #0ea5e9;
+  }
+  .text-\[\#34d399\] {
+    color: #34d399;
+  }
+  .text-\[\#38bdf8\] {
+    color: #38bdf8;
+  }
+  .text-gray-300 {
+    color: var(--color-gray-300);
+  }
+  .text-gray-400 {
+    color: var(--color-gray-400);
+  }
+  .text-gray-500 {
+    color: var(--color-gray-500);
+  }
+  .text-gray-600 {
+    color: var(--color-gray-600);
+  }
+  .text-red-400 {
+    color: var(--color-red-400);
+  }
+  .text-transparent {
+    color: transparent;
+  }
+  .text-white {
+    color: var(--color-white);
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .opacity-20 {
+    opacity: 20%;
+  }
+  .shadow-2xl {
+    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-lg {
+    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .blur-3xl {
+    --tw-blur: blur(var(--blur-3xl));
+    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
+  .blur-xl {
+    --tw-blur: blur(var(--blur-xl));
+    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
+  .backdrop-blur-md {
+    --tw-backdrop-blur: blur(var(--blur-md));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+  }
+  .backdrop-blur-sm {
+    --tw-backdrop-blur: blur(var(--blur-sm));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+  }
+  .transition-colors {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .select-all {
+    -webkit-user-select: all;
+    user-select: all;
+  }
+  @media (hover: hover) {
+    .hover\:text-\[\#38bdf8\]:hover {
+      color: #38bdf8;
+    }
+    .hover\:text-white:hover {
+      color: var(--color-white);
+    }
+  }
+  @media (width >= 40rem) {
+    .sm\:inline {
+      display: inline;
+    }
+    .sm\:w-auto {
+      width: auto;
+    }
+    .sm\:flex-row {
+      flex-direction: row;
+    }
+    .sm\:items-center {
+      align-items: center;
+    }
+    .sm\:text-5xl {
+      font-size: var(--text-5xl);
+      line-height: var(--tw-leading, var(--text-5xl--line-height));
+    }
+    .sm\:text-xl {
+      font-size: var(--text-xl);
+      line-height: var(--tw-leading, var(--text-xl--line-height));
+    }
+  }
+  @media (width >= 48rem) {
+    .md\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .md\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .md\:flex-row {
+      flex-direction: row;
+    }
+    .md\:p-12 {
+      padding: calc(var(--spacing) * 12);
+    }
+    .md\:p-14 {
+      padding: calc(var(--spacing) * 14);
+    }
+    .md\:p-16 {
+      padding: calc(var(--spacing) * 16);
+    }
+    .md\:px-12 {
+      padding-inline: calc(var(--spacing) * 12);
+    }
+    .md\:text-left {
+      text-align: left;
+    }
+    .md\:text-4xl {
+      font-size: var(--text-4xl);
+      line-height: var(--tw-leading, var(--text-4xl--line-height));
+    }
+    .md\:text-5xl {
+      font-size: var(--text-5xl);
+      line-height: var(--tw-leading, var(--text-5xl--line-height));
+    }
+  }
+  @media (width >= 64rem) {
+    .lg\:col-span-3 {
+      grid-column: span 3 / span 3;
+    }
+    .lg\:col-span-5 {
+      grid-column: span 5 / span 5;
+    }
+    .lg\:col-span-7 {
+      grid-column: span 7 / span 7;
+    }
+    .lg\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .lg\:grid-cols-12 {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+    .lg\:gap-12 {
+      gap: calc(var(--spacing) * 12);
+    }
+    .lg\:text-6xl {
+      font-size: var(--text-6xl);
+      line-height: var(--tw-leading, var(--text-6xl--line-height));
+    }
+  }
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-gradient-position {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-via {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-to {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-via-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-gradient-via-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --tw-gradient-to-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-tracking {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --tw-ring-offset-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: #fff;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-drop-shadow-size {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: block))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-translate-z: 0;
+      --tw-space-y-reverse: 0;
+      --tw-border-style: solid;
+      --tw-gradient-position: initial;
+      --tw-gradient-from: #0000;
+      --tw-gradient-via: #0000;
+      --tw-gradient-to: #0000;
+      --tw-gradient-stops: initial;
+      --tw-gradient-via-stops: initial;
+      --tw-gradient-from-position: 0%;
+      --tw-gradient-via-position: 50%;
+      --tw-gradient-to-position: 100%;
+      --tw-leading: initial;
+      --tw-font-weight: initial;
+      --tw-tracking: initial;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-color: initial;
+      --tw-shadow-alpha: 100%;
+      --tw-inset-shadow: 0 0 #0000;
+      --tw-inset-shadow-color: initial;
+      --tw-inset-shadow-alpha: 100%;
+      --tw-ring-color: initial;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-inset-ring-color: initial;
+      --tw-inset-ring-shadow: 0 0 #0000;
+      --tw-ring-inset: initial;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-blur: initial;
+      --tw-brightness: initial;
+      --tw-contrast: initial;
+      --tw-grayscale: initial;
+      --tw-hue-rotate: initial;
+      --tw-invert: initial;
+      --tw-opacity: initial;
+      --tw-saturate: initial;
+      --tw-sepia: initial;
+      --tw-drop-shadow: initial;
+      --tw-drop-shadow-color: initial;
+      --tw-drop-shadow-alpha: 100%;
+      --tw-drop-shadow-size: initial;
+      --tw-backdrop-blur: initial;
+      --tw-backdrop-brightness: initial;
+      --tw-backdrop-contrast: initial;
+      --tw-backdrop-grayscale: initial;
+      --tw-backdrop-hue-rotate: initial;
+      --tw-backdrop-invert: initial;
+      --tw-backdrop-opacity: initial;
+      --tw-backdrop-saturate: initial;
+      --tw-backdrop-sepia: initial;
+    }
+  }
+}
+</style>
+<style>/*! tailwindcss v4.3.5 | MIT License | https://tailwindcss.com */
+@layer properties;
+@layer theme, base, components, utilities;
+@layer theme {
+  :root, :host {
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+    --color-red-400: oklch(70.4% 0.191 22.216);
+    --color-red-500: oklch(63.7% 0.237 25.331);
+    --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
+    --color-gray-600: oklch(44.6% 0.03 256.802);
+    --color-black: #000;
+    --color-white: #fff;
+    --spacing: 0.25rem;
+    --container-sm: 24rem;
+    --container-md: 28rem;
+    --container-xl: 36rem;
+    --container-2xl: 42rem;
+    --container-3xl: 48rem;
+    --container-4xl: 56rem;
+    --container-5xl: 64rem;
+    --container-7xl: 80rem;
+    --text-xs: 0.75rem;
+    --text-xs--line-height: calc(1 / 0.75);
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
+    --text-lg: 1.125rem;
+    --text-lg--line-height: calc(1.75 / 1.125);
+    --text-xl: 1.25rem;
+    --text-xl--line-height: calc(1.75 / 1.25);
+    --text-2xl: 1.5rem;
+    --text-2xl--line-height: calc(2 / 1.5);
+    --text-3xl: 1.875rem;
+    --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+    --tracking-tight: -0.025em;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --leading-tight: 1.25;
+    --leading-relaxed: 1.625;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --blur-sm: 8px;
+    --blur-xl: 24px;
+    --blur-3xl: 64px;
+    --default-transition-duration: 150ms;
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --default-font-family: var(--font-sans);
+    --default-mono-font-family: var(--font-mono);
+  }
+}
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+  html, :host {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    font-family: var(--default-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
+    font-feature-settings: var(--default-font-feature-settings, normal);
+    font-variation-settings: var(--default-font-variation-settings, normal);
+    -webkit-tap-highlight-color: transparent;
+  }
+  hr {
+    height: 0;
+    color: inherit;
+    border-top-width: 1px;
+  }
+  abbr:where([title]) {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  a {
+    color: inherit;
+    -webkit-text-decoration: inherit;
+    text-decoration: inherit;
+  }
+  b, strong {
+    font-weight: bolder;
+  }
+  code, kbd, samp, pre {
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
+    font-size: 1em;
+  }
+  small {
+    font-size: 80%;
+  }
+  sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+  sup {
+    top: -0.5em;
+  }
+  table {
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+  }
+  :-moz-focusring:where(:not(iframe)) {
+    outline: auto;
+  }
+  progress {
+    vertical-align: baseline;
+  }
+  summary {
+    display: list-item;
+  }
+  ol, ul, menu {
+    list-style: none;
+  }
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: block;
+    vertical-align: middle;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+  button, input, select, optgroup, textarea, ::file-selector-button {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border-radius: 0;
+    background-color: transparent;
+    opacity: 1;
+  }
+  :where(select:is([multiple], [size])) optgroup {
+    font-weight: bolder;
+  }
+  :where(select:is([multiple], [size])) optgroup option {
+    padding-inline-start: 20px;
+  }
+  ::file-selector-button {
+    margin-inline-end: 4px;
+  }
+  ::placeholder {
+    opacity: 1;
+  }
+  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
+  }
+  textarea {
+    resize: vertical;
+  }
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+  ::-webkit-date-and-time-value {
+    min-height: 1lh;
+    text-align: inherit;
+  }
+  ::-webkit-datetime-edit {
+    display: inline-flex;
+  }
+  ::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+  }
+  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
+    padding-block: 0;
+  }
+  ::-webkit-calendar-picker-indicator {
+    line-height: 1;
+  }
+  :-moz-ui-invalid {
+    box-shadow: none;
+  }
+  button, input:where([type='button'], [type='reset'], [type='submit']), ::file-selector-button {
+    appearance: button;
+  }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+    height: auto;
+  }
+  [hidden]:where(:not([hidden='until-found'])) {
+    display: none !important;
+  }
+}
+@layer utilities {
+  .pointer-events-none {
+    pointer-events: none;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .fixed {
+    position: fixed;
+  }
+  .relative {
+    position: relative;
+  }
+  .-inset-1 {
+    inset: calc(var(--spacing) * -1);
+  }
+  .inset-0 {
+    inset: 0px;
+  }
+  .-top-24 {
+    top: calc(var(--spacing) * -24);
+  }
+  .top-0 {
+    top: 0px;
+  }
+  .top-4 {
+    top: calc(var(--spacing) * 4);
+  }
+  .right-0 {
+    right: 0px;
+  }
+  .right-4 {
+    right: calc(var(--spacing) * 4);
+  }
+  .left-0 {
+    left: 0px;
+  }
+  .left-1\/2 {
+    left: calc(1 / 2 * 100%);
+  }
+  .z-10 {
+    z-index: 10;
+  }
+  .z-50 {
+    z-index: 50;
+  }
+  .mx-auto {
+    margin-inline: auto;
+  }
+  .mt-0\.5 {
+    margin-top: calc(var(--spacing) * 0.5);
+  }
+  .mt-1 {
+    margin-top: var(--spacing);
+  }
+  .mt-2 {
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .mt-3 {
+    margin-top: calc(var(--spacing) * 3);
+  }
+  .mt-6 {
+    margin-top: calc(var(--spacing) * 6);
+  }
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+  .mb-3 {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+  .mb-4 {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+  .mb-6 {
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+  .mb-8 {
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
+  }
+  .mb-16 {
+    margin-bottom: calc(var(--spacing) * 16);
+  }
+  .flex {
+    display: flex;
+  }
+  .grid {
+    display: grid;
+  }
+  .hidden {
+    display: none;
+  }
+  .inline-block {
+    display: inline-block;
+  }
+  .inline-flex {
+    display: inline-flex;
+  }
+  .h-2 {
+    height: calc(var(--spacing) * 2);
+  }
+  .h-4 {
+    height: calc(var(--spacing) * 4);
+  }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
+  }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
+  .h-12 {
+    height: calc(var(--spacing) * 12);
+  }
+  .h-64 {
+    height: calc(var(--spacing) * 64);
+  }
+  .h-96 {
+    height: calc(var(--spacing) * 96);
+  }
+  .h-auto {
+    height: auto;
+  }
+  .min-h-\[90vh\] {
+    min-height: 90vh;
+  }
+  .w-2 {
+    width: calc(var(--spacing) * 2);
+  }
+  .w-4 {
+    width: calc(var(--spacing) * 4);
+  }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
+  }
+  .w-6 {
+    width: calc(var(--spacing) * 6);
+  }
+  .w-8 {
+    width: calc(var(--spacing) * 8);
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
+  }
+  .w-12 {
+    width: calc(var(--spacing) * 12);
+  }
+  .w-64 {
+    width: calc(var(--spacing) * 64);
+  }
+  .w-96 {
+    width: calc(var(--spacing) * 96);
+  }
+  .w-full {
+    width: 100%;
+  }
+  .max-w-2xl {
+    max-width: var(--container-2xl);
+  }
+  .max-w-3xl {
+    max-width: var(--container-3xl);
+  }
+  .max-w-4xl {
+    max-width: var(--container-4xl);
+  }
+  .max-w-5xl {
+    max-width: var(--container-5xl);
+  }
+  .max-w-7xl {
+    max-width: var(--container-7xl);
+  }
+  .max-w-md {
+    max-width: var(--container-md);
+  }
+  .max-w-sm {
+    max-width: var(--container-sm);
+  }
+  .max-w-xl {
+    max-width: var(--container-xl);
+  }
+  .shrink-0 {
+    flex-shrink: 0;
+  }
+  .-translate-x-1\/2 {
+    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .animate-pulse {
+    animation: var(--animate-pulse);
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .items-start {
+    align-items: flex-start;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .gap-1\.5 {
+    gap: calc(var(--spacing) * 1.5);
+  }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
+  }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
+  }
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
+  }
+  .gap-8 {
+    gap: calc(var(--spacing) * 8);
+  }
+  .gap-12 {
+    gap: calc(var(--spacing) * 12);
+  }
+  :where(.space-y-4 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-6 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-8 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-12 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 12) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 12) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  .rounded-2xl {
+    border-radius: var(--radius-2xl);
+  }
+  .rounded-3xl {
+    border-radius: var(--radius-3xl);
+  }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
+  }
+  .rounded-lg {
+    border-radius: var(--radius-lg);
+  }
+  .rounded-xl {
+    border-radius: var(--radius-xl);
+  }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+  }
+  .border-0 {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+  }
+  .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-\[\#0ea5e9\]\/20 {
+    border-color: color-mix(in oklab, #0ea5e9 20%, transparent);
+  }
+  .border-\[\#0ea5e9\]\/30 {
+    border-color: color-mix(in oklab, #0ea5e9 30%, transparent);
+  }
+  .border-\[\#10b981\]\/20 {
+    border-color: color-mix(in oklab, #10b981 20%, transparent);
+  }
+  .border-\[\#34d399\]\/20 {
+    border-color: color-mix(in oklab, #34d399 20%, transparent);
+  }
+  .border-white\/5 {
+    border-color: color-mix(in srgb, #fff 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-white) 5%, transparent);
+    }
+  }
+  .border-white\/10 {
+    border-color: color-mix(in srgb, #fff 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+    }
+  }
+  .border-white\/15 {
+    border-color: color-mix(in srgb, #fff 15%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-white) 15%, transparent);
+    }
+  }
+  .bg-\[\#0b1322\] {
+    background-color: #0b1322;
+  }
+  .bg-\[\#0b1322\]\/85 {
+    background-color: color-mix(in oklab, #0b1322 85%, transparent);
+  }
+  .bg-\[\#0ea5e9\]\/10 {
+    background-color: color-mix(in oklab, #0ea5e9 10%, transparent);
+  }
+  .bg-\[\#0ea5e9\]\/15 {
+    background-color: color-mix(in oklab, #0ea5e9 15%, transparent);
+  }
+  .bg-\[\#0ea5e9\]\/20 {
+    background-color: color-mix(in oklab, #0ea5e9 20%, transparent);
+  }
+  .bg-\[\#10b981\] {
+    background-color: #10b981;
+  }
+  .bg-\[\#10b981\]\/10 {
+    background-color: color-mix(in oklab, #10b981 10%, transparent);
+  }
+  .bg-\[\#34d399\]\/10 {
+    background-color: color-mix(in oklab, #34d399 10%, transparent);
+  }
+  .bg-\[\#070b12\] {
+    background-color: #070b12;
+  }
+  .bg-black\/60 {
+    background-color: color-mix(in srgb, #000 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);
+    }
+  }
+  .bg-black\/70 {
+    background-color: color-mix(in srgb, #000 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 70%, transparent);
+    }
+  }
+  .bg-red-500\/10 {
+    background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-red-500) 10%, transparent);
+    }
+  }
+  .bg-transparent {
+    background-color: transparent;
+  }
+  .bg-white\/5 {
+    background-color: color-mix(in srgb, #fff 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);
+    }
+  }
+  .bg-gradient-to-r {
+    --tw-gradient-position: to right in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
+  .from-\[\#0ea5e9\] {
+    --tw-gradient-from: #0ea5e9;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .from-\[\#38bdf8\] {
+    --tw-gradient-from: #38bdf8;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-\[\#10b981\] {
+    --tw-gradient-to: #10b981;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-\[\#34d399\] {
+    --tw-gradient-to: #34d399;
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .bg-clip-text {
+    background-clip: text;
+  }
+  .object-contain {
+    object-fit: contain;
+  }
+  .p-0 {
+    padding: 0px;
+  }
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
+  .p-4 {
+    padding: calc(var(--spacing) * 4);
+  }
+  .p-5 {
+    padding: calc(var(--spacing) * 5);
+  }
+  .p-6 {
+    padding: calc(var(--spacing) * 6);
+  }
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
+  .p-10 {
+    padding: calc(var(--spacing) * 10);
+  }
+  .px-3 {
+    padding-inline: calc(var(--spacing) * 3);
+  }
+  .px-3\.5 {
+    padding-inline: calc(var(--spacing) * 3.5);
+  }
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+  .px-5 {
+    padding-inline: calc(var(--spacing) * 5);
+  }
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+  .py-1 {
+    padding-block: var(--spacing);
+  }
+  .py-1\.5 {
+    padding-block: calc(var(--spacing) * 1.5);
+  }
+  .py-2\.5 {
+    padding-block: calc(var(--spacing) * 2.5);
+  }
+  .py-3 {
+    padding-block: calc(var(--spacing) * 3);
+  }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
+  }
+  .py-5 {
+    padding-block: calc(var(--spacing) * 5);
+  }
+  .py-12 {
+    padding-block: calc(var(--spacing) * 12);
+  }
+  .py-24 {
+    padding-block: calc(var(--spacing) * 24);
+  }
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
+  }
+  .pt-3 {
+    padding-top: calc(var(--spacing) * 3);
+  }
+  .pt-4 {
+    padding-top: calc(var(--spacing) * 4);
+  }
+  .pt-8 {
+    padding-top: calc(var(--spacing) * 8);
+  }
+  .pt-32 {
+    padding-top: calc(var(--spacing) * 32);
+  }
+  .pb-20 {
+    padding-bottom: calc(var(--spacing) * 20);
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+  }
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+  }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+  .text-xl {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
+  .text-xs {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+  .leading-\[1\.08\] {
+    --tw-leading: 1.08;
+    line-height: 1.08;
+  }
+  .leading-relaxed {
+    --tw-leading: var(--leading-relaxed);
+    line-height: var(--leading-relaxed);
+  }
+  .leading-tight {
+    --tw-leading: var(--leading-tight);
+    line-height: var(--leading-tight);
+  }
+  .font-black {
+    --tw-font-weight: var(--font-weight-black);
+    font-weight: var(--font-weight-black);
+  }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
+  .font-extrabold {
+    --tw-font-weight: var(--font-weight-extrabold);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .font-light {
+    --tw-font-weight: var(--font-weight-light);
+    font-weight: var(--font-weight-light);
+  }
+  .font-normal {
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+  }
+  .font-semibold {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
+  .tracking-tight {
+    --tw-tracking: var(--tracking-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+  .tracking-wide {
+    --tw-tracking: var(--tracking-wide);
+    letter-spacing: var(--tracking-wide);
+  }
+  .tracking-wider {
+    --tw-tracking: var(--tracking-wider);
+    letter-spacing: var(--tracking-wider);
+  }
+  .text-\[\#0ea5e9\] {
+    color: #0ea5e9;
+  }
+  .text-\[\#34d399\] {
+    color: #34d399;
+  }
+  .text-\[\#38bdf8\] {
+    color: #38bdf8;
+  }
+  .text-gray-300 {
+    color: var(--color-gray-300);
+  }
+  .text-gray-400 {
+    color: var(--color-gray-400);
+  }
+  .text-gray-500 {
+    color: var(--color-gray-500);
+  }
+  .text-gray-600 {
+    color: var(--color-gray-600);
+  }
+  .text-red-400 {
+    color: var(--color-red-400);
+  }
+  .text-transparent {
+    color: transparent;
+  }
+  .text-white {
+    color: var(--color-white);
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .opacity-20 {
+    opacity: 20%;
+  }
+  .shadow-2xl {
+    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-lg {
+    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .blur-3xl {
+    --tw-blur: blur(var(--blur-3xl));
+    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
+  .blur-xl {
+    --tw-blur: blur(var(--blur-xl));
+    filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
+  }
+  .backdrop-blur-sm {
+    --tw-backdrop-blur: blur(var(--blur-sm));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+  }
+  .transition-colors {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .select-all {
+    -webkit-user-select: all;
+    user-select: all;
+  }
+  @media (hover: hover) {
+    .hover\:text-white:hover {
+      color: var(--color-white);
+    }
+  }
+  @media (width >= 40rem) {
+    .sm\:inline {
+      display: inline;
+    }
+    .sm\:w-auto {
+      width: auto;
+    }
+    .sm\:flex-row {
+      flex-direction: row;
+    }
+    .sm\:items-center {
+      align-items: center;
+    }
+    .sm\:text-5xl {
+      font-size: var(--text-5xl);
+      line-height: var(--tw-leading, var(--text-5xl--line-height));
+    }
+    .sm\:text-xl {
+      font-size: var(--text-xl);
+      line-height: var(--tw-leading, var(--text-xl--line-height));
+    }
+  }
+  @media (width >= 48rem) {
+    .md\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .md\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .md\:flex-row {
+      flex-direction: row;
+    }
+    .md\:p-12 {
+      padding: calc(var(--spacing) * 12);
+    }
+    .md\:p-14 {
+      padding: calc(var(--spacing) * 14);
+    }
+    .md\:p-16 {
+      padding: calc(var(--spacing) * 16);
+    }
+    .md\:px-12 {
+      padding-inline: calc(var(--spacing) * 12);
+    }
+    .md\:text-left {
+      text-align: left;
+    }
+    .md\:text-4xl {
+      font-size: var(--text-4xl);
+      line-height: var(--tw-leading, var(--text-4xl--line-height));
+    }
+    .md\:text-5xl {
+      font-size: var(--text-5xl);
+      line-height: var(--tw-leading, var(--text-5xl--line-height));
+    }
+  }
+  @media (width >= 64rem) {
+    .lg\:col-span-3 {
+      grid-column: span 3 / span 3;
+    }
+    .lg\:col-span-5 {
+      grid-column: span 5 / span 5;
+    }
+    .lg\:col-span-7 {
+      grid-column: span 7 / span 7;
+    }
+    .lg\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .lg\:grid-cols-12 {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+    .lg\:gap-12 {
+      gap: calc(var(--spacing) * 12);
+    }
+    .lg\:text-6xl {
+      font-size: var(--text-6xl);
+      line-height: var(--tw-leading, var(--text-6xl--line-height));
+    }
+  }
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-gradient-position {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-via {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-to {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-via-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-gradient-via-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --tw-gradient-to-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-tracking {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --tw-ring-offset-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: #fff;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-drop-shadow-size {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: block))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-translate-z: 0;
+      --tw-space-y-reverse: 0;
+      --tw-border-style: solid;
+      --tw-gradient-position: initial;
+      --tw-gradient-from: #0000;
+      --tw-gradient-via: #0000;
+      --tw-gradient-to: #0000;
+      --tw-gradient-stops: initial;
+      --tw-gradient-via-stops: initial;
+      --tw-gradient-from-position: 0%;
+      --tw-gradient-via-position: 50%;
+      --tw-gradient-to-position: 100%;
+      --tw-leading: initial;
+      --tw-font-weight: initial;
+      --tw-tracking: initial;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-color: initial;
+      --tw-shadow-alpha: 100%;
+      --tw-inset-shadow: 0 0 #0000;
+      --tw-inset-shadow-color: initial;
+      --tw-inset-shadow-alpha: 100%;
+      --tw-ring-color: initial;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-inset-ring-color: initial;
+      --tw-inset-ring-shadow: 0 0 #0000;
+      --tw-ring-inset: initial;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-blur: initial;
+      --tw-brightness: initial;
+      --tw-contrast: initial;
+      --tw-grayscale: initial;
+      --tw-hue-rotate: initial;
+      --tw-invert: initial;
+      --tw-opacity: initial;
+      --tw-saturate: initial;
+      --tw-sepia: initial;
+      --tw-drop-shadow: initial;
+      --tw-drop-shadow-color: initial;
+      --tw-drop-shadow-alpha: 100%;
+      --tw-drop-shadow-size: initial;
+      --tw-backdrop-blur: initial;
+      --tw-backdrop-brightness: initial;
+      --tw-backdrop-contrast: initial;
+      --tw-backdrop-grayscale: initial;
+      --tw-backdrop-hue-rotate: initial;
+      --tw-backdrop-invert: initial;
+      --tw-backdrop-opacity: initial;
+      --tw-backdrop-saturate: initial;
+      --tw-backdrop-sepia: initial;
+    }
+  }
+}
+</style>
+
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --secondary: #10b981;
+      --bg-dark: #070b12;
+      --surface-dark: #0f172a;
+      --surface-glass: rgba(15, 23, 42, 0.75);
+      --border-glass: rgba(255, 255, 255, 0.08);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-dark);
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    /* Mesh Gradient Animation */
+    .mesh-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .blob {
+      position: absolute;
+      filter: blur(120px);
+      border-radius: 50%;
+      transition: transform 1s ease;
+    }
+
+    .blob-1 {
+      width: 500px;
+      height: 500px;
+      background: rgba(14, 165, 233, 0.22);
+      top: -100px;
+      left: 10%;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+
+    .blob-2 {
+      width: 450px;
+      height: 450px;
+      background: rgba(16, 185, 129, 0.18);
+      top: 20%;
+      right: 10%;
+      animation: float 12s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, 40px) scale(1.1); }
+    }
+
+    /* Glassmorphism */
+    .glass-card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Tilt Card Effects */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tilt-card:hover {
+      transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+      box-shadow: 0 25px 50px rgba(14, 165, 233, 0.15);
+      border-color: rgba(14, 165, 233, 0.3);
+    }
+
+    /* Pulse CTA Button */
+    .btn-cta {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.4);
+      color: #ffffff;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px rgba(14, 165, 233, 0.6);
+      filter: brightness(1.1);
+    }
+
+    .btn-cta:active {
+      transform: scale(0.98);
+    }
+
+    /* Zoomable Images styling */
+    .zoomable-img {
+      cursor: zoom-in;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .zoomable-img:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+  </style>
+<style id="ai-page-style"></style>
+
+</head>
+<body>
+
+
+  <!-- Floating Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between" id="ls-1-1794950473507" data-editable="section">
+    <div class="flex items-center gap-3" id="ls-2-1794950473508" data-editable="text">
+      <div class="w-8 h-8 rounded-lg bg-[#0ea5e9]/20 flex items-center justify-center border border-[#0ea5e9]/30">
+        <svg class="w-5 h-5 text-[#0ea5e9]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+      </div>
+      <span class="font-bold tracking-tight text-lg text-white" id="ls-3-1794950473508" data-editable="text">Venda IA 30</span>
+    </div>
+    <a href="https://pay.hotmart.com/S108545555E?off=v473o1xd&amp;hotfeature=51" class="btn-cta font-semibold px-5 py-2.5 rounded-full text-sm inline-flex items-center gap-2" id="ls-4-1794950473508" data-editable="cta" target="_self">
+      Garantir Meu Exemplar
+      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+    </a>
+  </header>
+
+  <!-- 1. Apresentação Principal Reformulada (Hero) -->
+  <section class="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 px-6 md:px-12" id="ls-5-1794950473509" data-editable="section">
+    <div class="mesh-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center relative z-10">
+      
+      <!-- Coluna Esquerda (~55%) -->
+      <div class="lg:col-span-7 space-y-6 text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0ea5e9]/10 border border-[#0ea5e9]/20 text-[#38bdf8] text-xs font-semibold tracking-wide uppercase" id="ls-6-1794950473510" data-editable="text">
+          <span class="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
+          GUIA PRÁTICO • EBOOK DIGITAL
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.08]" id="ls-7-1794950473510" data-editable="text">
+          Aprenda a Usar Inteligência Artificial para <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] to-[#34d399]" id="ls-8-1794950473510" data-editable="text">Vender Mais em 30 Dias</span>
+        </h1>
+
+        <p class="text-gray-300 text-lg sm:text-xl font-light leading-relaxed max-w-2xl" id="ls-9-1794950473510" data-editable="text">
+          Descubra maneiras práticas de utilizar a IA para criar ofertas mais atrativas, melhorar suas mensagens de vendas e aproveitar ferramentas como o ChatGPT no seu negócio.
+        </p>
+
+        <!-- Apresentação Discreta e Elegante do Preço -->
+        <div class="flex items-center gap-3 py-1">
+          <span class="text-gray-300 text-sm font-light" id="ls-10-1794950473510" data-editable="text">Seu guia prático por apenas</span>
+          <span class="text-2xl font-black text-white bg-[#0ea5e9]/15 px-3 py-1 rounded-lg border border-[#0ea5e9]/30 text-[#38bdf8]" id="ls-11-1794950473510" data-editable="text">R$ 9,00</span>
+        </div>
+
+        <!-- Botão Principal Único -->
+        <div class="pt-2">
+          <a href="https://pay.hotmart.com/S108545555E?off=v473o1xd&amp;hotfeature=51" class="btn-cta font-bold px-8 py-4 rounded-xl text-center text-base tracking-wide inline-flex items-center justify-center gap-3 w-full sm:w-auto" id="ls-12-1794950473510" data-editable="cta">
+            QUERO MEU EBOOK POR R$ 9,00
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Informações Adicionadas em Uma Linha -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-3 text-xs text-gray-400">
+          <span class="flex items-center gap-1.5" id="ls-13-1794950473511" data-editable="text">
+            <svg class="w-4 h-4 text-[#38bdf8]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            Linguagem simples e direta
+          </span>
+          <span class="hidden sm:inline text-gray-600" id="ls-14-1794950473511" data-editable="text">•</span>
+          <span class="flex items-center gap-1.5" id="ls-15-1794950473511" data-editable="text">
+            <svg class="w-4 h-4 text-[#38bdf8]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            Ideal para iniciantes
+          </span>
+          <span class="hidden sm:inline text-gray-600" id="ls-16-1794950473512" data-editable="text">•</span>
+          <span class="flex items-center gap-1.5" id="ls-17-1794950473512" data-editable="text">
+            <svg class="w-4 h-4 text-[#38bdf8]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            45 páginas • 7 capítulos • 30 missões práticas
+          </span>
+        </div>
+      </div>
+
+      <!-- Coluna Direita (~45%) — Capa do eBook -->
+      <div class="lg:col-span-5 flex items-center justify-center">
+        <div class="relative w-full max-w-sm">
+          <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#0ea5e9] to-[#10b981] opacity-20 blur-xl"></div>
+          <div class="relative glass-card p-3 rounded-2xl border border-white/15 shadow-2xl bg-[#0b1322]/85">
+            <img src="capa.jpg" alt="30 Dias para Vender Mais com IA eBook Capa Oficial" class="w-full h-auto rounded-xl object-contain shadow-lg zoomable-img" id="ls-18-1794950473512" data-zoomable="" data-editable="image">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2. Destaque dos Principais Materiais Incluídos -->
+  <section class="py-24 px-6 md:px-12 relative" id="ls-19-1794950473512" data-editable="section">
+    <div class="max-w-5xl mx-auto space-y-12">
+      <div class="glass-card p-8 md:p-14 rounded-3xl border border-white/10 relative overflow-hidden">
+        <span class="text-[#38bdf8] text-sm font-bold uppercase tracking-wider" id="ls-20-1794950473513" data-editable="text">Estrutura do eBook</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-8 tracking-tight" id="ls-21-1794950473513" data-editable="text">
+          Muito mais que leitura: um plano para colocar em prática!
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#0ea5e9]/10 text-[#38bdf8] flex items-center justify-center font-bold text-lg">📄</div>
+            <div>
+              <h4 class="text-white font-bold text-base" id="ls-22-1794950473513" data-editable="text">45 páginas</h4>
+              <p class="text-gray-400 text-xs" id="ls-23-1794950473513" data-editable="text">Conteúdo prático para aplicar no seu negócio</p>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#10b981]/10 text-[#34d399] flex items-center justify-center font-bold text-lg">📅</div>
+            <div>
+              <h4 class="text-white font-bold text-base" id="ls-24-1794950473514" data-editable="text">7 capítulos</h4>
+              <p class="text-gray-400 text-xs" id="ls-25-1794950473514" data-editable="text">Organizados em 30 dias</p>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#0ea5e9]/10 text-[#38bdf8] flex items-center justify-center font-bold text-lg">🎯</div>
+            <div>
+              <h4 class="text-white font-bold text-base" id="ls-26-1794950473514" data-editable="text">30 missões</h4>
+              <p class="text-gray-400 text-xs" id="ls-27-1794950473514" data-editable="text">Práticas de 15 a 30 min/dia</p>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#10b981]/10 text-[#34d399] flex items-center justify-center font-bold text-lg">💡</div>
+            <div>
+              <h4 class="text-white font-bold text-base" id="ls-28-1794950473514" data-editable="text">21 prompts</h4>
+              <p class="text-gray-400 text-xs" id="ls-29-1794950473514" data-editable="text">Guiados</p>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#0ea5e9]/10 text-[#38bdf8] flex items-center justify-center font-bold text-lg">✍️</div>
+            <div>
+              <h4 class="text-white font-bold text-base" id="ls-30-1794950473514" data-editable="text">16 textos</h4>
+              <p class="text-gray-400 text-xs" id="ls-31-1794950473514" data-editable="text">Modelos prontos para uso</p>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#10b981]/10 text-[#34d399] flex items-center justify-center font-bold text-lg">🎁</div>
+            <div>
+              <h4 class="text-white font-bold text-base" id="ls-32-1794950473514" data-editable="text">30 prompts extras</h4>
+              <p class="text-gray-400 text-xs" id="ls-33-1794950473515" data-editable="text">Como bônus inclusos</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Duas Trilhas -->
+        <div class="border-t border-white/10 pt-8">
+          <h3 class="text-2xl font-bold text-white mb-6" id="ls-34-1794950473515" data-editable="text">2 trilhas de aprendizado para o seu momento:</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 rounded-2xl bg-[#0ea5e9]/10 border border-[#0ea5e9]/20">
+              <span class="text-xs font-bold text-[#38bdf8] uppercase tracking-wider" id="ls-35-1794950473515" data-editable="text">Trilha A</span>
+              <h4 class="text-white font-bold text-xl mt-1 mb-2" id="ls-36-1794950473515" data-editable="text">Estou começando</h4>
+              <p class="text-gray-300 text-sm leading-relaxed" id="ls-37-1794950473515" data-editable="text">Para quem ainda está escolhendo o que vender ou buscando os primeiros clientes.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-[#10b981]/10 border border-[#10b981]/20">
+              <span class="text-xs font-bold text-[#34d399] uppercase tracking-wider" id="ls-38-1794950473515" data-editable="text">Trilha B</span>
+              <h4 class="text-white font-bold text-xl mt-1 mb-2" id="ls-39-1794950473515" data-editable="text">Já vendo</h4>
+              <p class="text-gray-300 text-sm leading-relaxed" id="ls-40-1794950473515" data-editable="text">Para quem já comercializa produtos ou serviços e deseja melhorar ofertas, conteúdos e atendimento.</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-xs mt-6 text-center" id="ls-41-1794950473516" data-editable="text">O guia propõe atividades de aproximadamente 15 a 30 minutos por dia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Seção com as Suas 3 Amostras (Suas imagens específicas preservadas e com zoom) -->
+  <section class="py-24 px-6 md:px-12 relative bg-[#0b1322]" id="ls-42-1794950473516" data-editable="section">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-[#38bdf8] text-sm font-bold uppercase tracking-wider" id="ls-43-1794950473516" data-editable="text">Amostra Real</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight" id="ls-44-1794950473516" data-editable="text">Veja por dentro do eBook!</h2>
+        <p class="text-gray-400 mt-3" id="ls-45-1794950473516" data-editable="text">Conheça algumas páginas reais do guia e descubra o que você vai aprender. (Clique na imagem para ampliar)</p>
+      </div>
+
+      <!-- Grid com as 3 Amostras Lado a Lado -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Amostra 1 -->
+        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between tilt-card">
+          <div>
+            <div class="rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black/60 mb-6">
+              <img src="ebook_pagina_05.png" alt="Amostra Página 1" class="w-full h-auto object-contain zoomable-img" id="ls-46-1794950473516" data-zoomable="" data-editable="image">
+            </div>
+            <span class="text-xs font-bold text-[#34d399] bg-[#10b981]/10 px-3 py-1 rounded-full border border-[#10b981]/20 inline-block mb-3" id="ls-47-1794950473516" data-editable="text">Página 5</span>
+            <h3 class="text-xl font-bold text-white mb-2" id="ls-48-1794950473517" data-editable="text">Comandos de IA</h3>
+            <p class="text-gray-300 text-sm leading-relaxed" id="ls-49-1794950473517" data-editable="text">
+              Aprenda a utilizar o ChatGPT e configurar seu assistente de vendas com comandos prontos para adaptar.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 text-xs text-gray-400" id="ls-50-1794950473517" data-editable="text">
+            Amostra real do eBook
+          </div>
+        </div>
+
+        <!-- Amostra 2 -->
+        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between tilt-card">
+          <div>
+            <div class="rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black/60 mb-6">
+              <img src="ebook_pagina_21.png" alt="Amostra Página 2" class="w-full h-auto object-contain zoomable-img" id="ls-51-1794950473517" data-zoomable="" data-editable="image">
+            </div>
+            <span class="text-xs font-bold text-[#38bdf8] bg-[#0ea5e9]/10 px-3 py-1 rounded-full border border-[#0ea5e9]/20 inline-block mb-3" id="ls-52-1794950473517" data-editable="text">Página 21</span>
+            <h3 class="text-xl font-bold text-white mb-2" id="ls-53-1794950473517" data-editable="text">Divulgação sem Anúncios</h3>
+            <p class="text-gray-300 text-sm leading-relaxed" id="ls-54-1794950473517" data-editable="text">
+              Descubra como encontrar possíveis clientes e criar ofertas utilizando a inteligência artificial.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 text-xs text-gray-400" id="ls-55-1794950473517" data-editable="text">
+            Amostra real do eBook
+          </div>
+        </div>
+
+        <!-- Amostra 3 -->
+        <div class="glass-card p-6 rounded-3xl border border-white/10 flex flex-col justify-between tilt-card">
+          <div>
+            <div class="rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black/60 mb-6">
+              <img src="ebook_pagina_35.png" alt="Amostra Página 3" class="w-full h-auto object-contain zoomable-img" id="ls-56-1794950473518" data-zoomable="" data-editable="image">
+            </div>
+            <span class="text-xs font-bold text-[#34d399] bg-[#10b981]/10 px-3 py-1 rounded-full border border-[#10b981]/20 inline-block mb-3" id="ls-57-1794950473518" data-editable="text">Página 35</span>
+            <h3 class="text-xl font-bold text-white mb-2" id="ls-58-1794950473518" data-editable="text">Mensagens Prontas</h3>
+            <p class="text-gray-300 text-sm leading-relaxed" id="ls-59-1794950473518" data-editable="text">
+              Conheça modelos de mensagens para atendimento, orçamento, preços e disponibilidade.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 text-xs text-gray-400" id="ls-60-1794950473518" data-editable="text">
+            Amostra real do eBook
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. Problemas que o eBook Ajuda a Trabalhar -->
+  <section class="py-24 px-6 md:px-12 relative" id="ls-61-1794950473518" data-editable="section">
+    <div class="max-w-5xl mx-auto">
+      <div class="glass-card p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-[#0ea5e9]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-6 tracking-tight text-center md:text-left" id="ls-62-1794950473518" data-editable="text">
+          Você ainda perde tempo tentando descobrir o que escrever para vender?
+        </h2>
+        <p class="text-gray-300 text-lg font-light leading-relaxed mb-8 text-center md:text-left" id="ls-63-1794950473519" data-editable="text">
+          Pequenos empreendedores e autônomos enfrentam desafios diários na criação de conteúdos e abordagens comerciais:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center shrink-0 mt-0.5">✕</div>
+            <p class="text-gray-300 text-sm" id="ls-64-1794950473519" data-editable="text">Não saber exatamente como apresentar seus produtos e serviços com clareza.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center shrink-0 mt-0.5">✕</div>
+            <p class="text-gray-300 text-sm" id="ls-65-1794950473519" data-editable="text">Ter dificuldade constante para criar mensagens de vendas persuasivas.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center shrink-0 mt-0.5">✕</div>
+            <p class="text-gray-300 text-sm" id="ls-66-1794950473519" data-editable="text">Não conseguir produzir conteúdo com frequência para as redes sociais.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-white/5 border border-white/5 flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center shrink-0 mt-0.5">✕</div>
+            <p class="text-gray-300 text-sm" id="ls-67-1794950473519" data-editable="text">Não saber aproveitar o ChatGPT e ferramentas de IA no trabalho diário.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Apresentação Completa dos 7 Capítulos -->
+  <section class="py-24 px-6 md:px-12 relative bg-[#0b1322]" id="ls-68-1794950473520" data-editable="section">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-[#38bdf8] text-sm font-bold uppercase tracking-wider" id="ls-69-1794950473520" data-editable="text">Conteúdo Completo</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight" id="ls-70-1794950473520" data-editable="text">OS 7 CAPÍTULOS DO SEU GUIA</h2>
+        <p class="text-gray-400 mt-3" id="ls-71-1794950473520" data-editable="text">Organizados estrategicamente para transformar sua rotina comercial em 30 dias.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Chapter 1 -->
+        <div class="tilt-card glass-card p-8 rounded-2xl flex flex-col justify-between border border-white/10">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-bold text-[#38bdf8] bg-[#0ea5e9]/10 px-3 py-1 rounded-full border border-[#0ea5e9]/20" id="ls-72-1794950473520" data-editable="text">Dias 1 a 3</span>
+              <span class="text-2xl font-black text-gray-500" id="ls-73-1794950473521" data-editable="text">01</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" id="ls-74-1794950473521" data-editable="text">Capítulo 1 — Comece do Zero com a IA</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" id="ls-75-1794950473521" data-editable="text">Aprenda a utilizar o ChatGPT, configurar seu assistente de vendas e explorar ideias para começar.</p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/5 text-xs text-[#38bdf8] font-semibold" id="ls-76-1794950473521" data-editable="text">Capítulo 01</div>
+        </div>
+
+        <!-- Chapter 2 -->
+        <div class="tilt-card glass-card p-8 rounded-2xl flex flex-col justify-between border border-white/10">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-bold text-[#34d399] bg-[#10b981]/10 px-3 py-1 rounded-full border border-[#10b981]/20" id="ls-77-1794950473521" data-editable="text">Dias 4 a 7</span>
+              <span class="text-2xl font-black text-gray-500" id="ls-78-1794950473521" data-editable="text">02</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" id="ls-79-1794950473521" data-editable="text">Capítulo 2 — Encontre Produtos que as Pessoas Querem Comprar</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" id="ls-80-1794950473521" data-editable="text">Explore oportunidades, conheça seu público e aprenda a estruturar ofertas.</p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/5 text-xs text-[#34d399] font-semibold" id="ls-81-1794950473522" data-editable="text">Capítulo 02</div>
+        </div>
+
+        <!-- Chapter 3 -->
+        <div class="tilt-card glass-card p-8 rounded-2xl flex flex-col justify-between border border-white/10">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-bold text-[#38bdf8] bg-[#0ea5e9]/10 px-3 py-1 rounded-full border border-[#0ea5e9]/20" id="ls-82-1794950473522" data-editable="text">Dias 8 a 12</span>
+              <span class="text-2xl font-black text-gray-500" id="ls-83-1794950473522" data-editable="text">03</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" id="ls-84-1794950473522" data-editable="text">Capítulo 3 — Crie Conteúdos que Atraem Clientes</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" id="ls-85-1794950473522" data-editable="text">Aprenda a planejar publicações, legendas e conteúdos com auxílio da IA.</p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/5 text-xs text-[#38bdf8] font-semibold" id="ls-86-1794950473522" data-editable="text">Capítulo 03</div>
+        </div>
+
+        <!-- Chapter 4 -->
+        <div class="tilt-card glass-card p-8 rounded-2xl flex flex-col justify-between border border-white/10">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-bold text-[#34d399] bg-[#10b981]/10 px-3 py-1 rounded-full border border-[#10b981]/20" id="ls-87-1794950473522" data-editable="text">Dias 13 a 17</span>
+              <span class="text-2xl font-black text-gray-500" id="ls-88-1794950473522" data-editable="text">04</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" id="ls-89-1794950473523" data-editable="text">Capítulo 4 — Transforme o WhatsApp em uma Máquina de Vendas</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" id="ls-90-1794950473523" data-editable="text">Prepare mensagens de atendimento, respostas a objeções e acompanhamentos de clientes.</p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/5 text-xs text-[#34d399] font-semibold" id="ls-91-1794950473523" data-editable="text">Capítulo 04</div>
+        </div>
+
+        <!-- Chapter 5 -->
+        <div class="tilt-card glass-card p-8 rounded-2xl flex flex-col justify-between border border-white/10">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-bold text-[#38bdf8] bg-[#0ea5e9]/10 px-3 py-1 rounded-full border border-[#0ea5e9]/20" id="ls-92-1794950473523" data-editable="text">Dias 18 a 22</span>
+              <span class="text-2xl font-black text-gray-500" id="ls-93-1794950473523" data-editable="text">05</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" id="ls-94-1794950473523" data-editable="text">Capítulo 5 — Venda Todos os Dias sem Gastar com Anúncios</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" id="ls-95-1794950473523" data-editable="text">Aprenda estratégias de divulgação orgânica e organize sua rotina comercial.</p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/5 text-xs text-[#38bdf8] font-semibold" id="ls-96-1794950473523" data-editable="text">Capítulo 05</div>
+        </div>
+
+        <!-- Chapter 6 -->
+        <div class="tilt-card glass-card p-8 rounded-2xl flex flex-col justify-between border border-white/10">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-bold text-[#34d399] bg-[#10b981]/10 px-3 py-1 rounded-full border border-[#10b981]/20" id="ls-97-1794950473524" data-editable="text">Dias 23 a 26</span>
+              <span class="text-2xl font-black text-gray-500" id="ls-98-1794950473524" data-editable="text">06</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" id="ls-99-1794950473524" data-editable="text">Capítulo 6 — Use a IA para Vender Mais para Cada Cliente</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" id="ls-100-1794950473524" data-editable="text">Crie ofertas complementares, melhore o pós-venda e aprenda a solicitar avaliações e indicações.</p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/5 text-xs text-[#34d399] font-semibold" id="ls-101-1794950473524" data-editable="text">Capítulo 06</div>
+        </div>
+
+        <!-- Chapter 7 -->
+        <div class="tilt-card glass-card p-8 rounded-2xl flex flex-col justify-between border border-white/10 lg:col-span-3 max-w-xl mx-auto w-full">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-bold text-[#38bdf8] bg-[#0ea5e9]/10 px-3 py-1 rounded-full border border-[#0ea5e9]/20" id="ls-102-1794950473524" data-editable="text">Dias 27 a 30</span>
+              <span class="text-2xl font-black text-gray-500" id="ls-103-1794950473524" data-editable="text">07</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3" id="ls-104-1794950473524" data-editable="text">Capítulo 7 — Seu Plano para Continuar Vendendo</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" id="ls-105-1794950473525" data-editable="text">Aprenda a acompanhar resultados e planejar suas próximas ações comerciais.</p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-white/5 text-xs text-[#38bdf8] font-semibold" id="ls-106-1794950473525" data-editable="text">Capítulo 07</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Explicação das Duas Trilhas de Aprendizado -->
+  <section class="py-24 px-6 md:px-12 relative" id="ls-107-1794950473525" data-editable="section">
+    <div class="max-w-5xl mx-auto">
+      <div class="glass-card p-8 md:p-14 rounded-3xl border border-white/10">
+        <span class="text-[#38bdf8] text-sm font-bold uppercase tracking-wider" id="ls-108-1794950473525" data-editable="text">Metodologia</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-6 tracking-tight" id="ls-109-1794950473525" data-editable="text">Para quem é este eBook?</h2>
+        <p class="text-gray-300 text-lg font-light leading-relaxed mb-8" id="ls-110-1794950473525" data-editable="text">
+          Para empreendedores, vendedores, profissionais autônomos e qualquer pessoa que queira aprender a utilizar a inteligência artificial de maneira simples e prática.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 rounded-2xl bg-[#0ea5e9]/10 border border-[#0ea5e9]/20">
+            <span class="text-xs font-bold text-[#38bdf8] uppercase tracking-wider" id="ls-111-1794950473525" data-editable="text">Trilha A — Estou começando</span>
+            <p class="text-gray-300 text-sm mt-2 leading-relaxed" id="ls-112-1794950473526" data-editable="text">Para quem ainda está escolhendo o que vender ou buscando os primeiros clientes.</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#10b981]/10 border border-[#10b981]/20">
+            <span class="text-xs font-bold text-[#34d399] uppercase tracking-wider" id="ls-113-1794950473526" data-editable="text">Trilha B — Já vendo</span>
+            <p class="text-gray-300 text-sm mt-2 leading-relaxed" id="ls-114-1794950473526" data-editable="text">Para quem já comercializa produtos ou serviços e deseja melhorar ofertas, conteúdos e atendimento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Apresentação da Oferta por R$ 9,00 -->
+  <section class="py-24 px-6 md:px-12 relative bg-[#0b1322]" id="ls-115-1794950473526" data-editable="section">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="glass-card p-10 md:p-16 rounded-3xl border border-[#0ea5e9]/30 shadow-2xl relative">
+        <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#0ea5e9]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <span class="text-[#34d399] text-xs font-bold uppercase tracking-wider bg-[#34d399]/10 px-3 py-1 rounded-full border border-[#34d399]/20 inline-block mb-4" id="ls-116-1794950473526" data-editable="text">Oferta Especial</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight" id="ls-117-1794950473526" data-editable="text">
+          Comece a aprender IA aplicada às vendas!
+        </h2>
+        <p class="text-gray-300 text-base font-light max-w-xl mx-auto mb-8" id="ls-118-1794950473526" data-editable="text">
+          Adquira seu eBook e dê o primeiro passo para aprender a utilizar a IA de forma mais estratégica.
+        </p>
+
+        <!-- Informações de Compra e Transparência -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-8 text-left text-xs text-gray-300 bg-white/5 p-4 rounded-2xl border border-white/5">
+          <div class="flex items-start gap-2" id="ls-119-1794950473527" data-editable="text">
+            <svg class="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <span id="ls-120-1794950473527" data-editable="text"><strong>Produto digital</strong> em PDF</span>
+          </div>
+          <div class="flex items-start gap-2" id="ls-121-1794950473527" data-editable="text">
+            <svg class="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <span id="ls-122-1794950473527" data-editable="text">Pagamento pela <strong>Hotmart</strong></span>
+          </div>
+          <div class="flex items-start gap-2" id="ls-123-1794950473528" data-editable="text">
+            <svg class="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <span id="ls-124-1794950473528" data-editable="text"><strong>Acesso imediato</strong> após confirmação</span>
+          </div>
+          <div class="flex items-start gap-2" id="ls-125-1794950473528" data-editable="text">
+            <svg class="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <span id="ls-126-1794950473528" data-editable="text">Preço: <strong>R$ 9,00</strong></span>
+          </div>
+        </div>
+
+        <div class="text-4xl md:text-5xl font-black text-white mb-8" id="ls-127-1794950473528" data-editable="text">
+          R$ 9<span class="text-2xl font-normal text-gray-400" id="ls-128-1794950473528" data-editable="text">,00</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="https://pay.hotmart.com/S108545555E?off=v473o1xd&amp;hotfeature=51" class="btn-cta font-bold px-10 py-5 rounded-xl text-lg tracking-wide flex items-center justify-center gap-3 w-full sm:w-auto" id="ls-129-1794950473532" data-editable="cta">
+            QUERO MEU EBOOK AGORA
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Perguntas Frequentes (FAQ) -->
+  <section class="py-24 px-6 md:px-12 relative" id="ls-130-1794950473532" data-editable="section">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-[#38bdf8] text-sm font-bold uppercase tracking-wider" id="ls-131-1794950473532" data-editable="text">Dúvidas Frequentes</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight" id="ls-132-1794950473533" data-editable="text">Perguntas Frequentes</h2>
+      </div>
+
+      <div class="space-y-4">
+        <div class="glass-card p-6 rounded-2xl border border-white/10">
+          <h3 class="text-lg font-bold text-white mb-2" id="ls-133-1794950473533" data-editable="text">Preciso saber programação?</h3>
+          <p class="text-gray-300 text-sm font-light leading-relaxed" id="ls-134-1794950473533" data-editable="text">Não. O material foi desenvolvido com foco em simplicidade, para que qualquer pessoa possa aplicar as orientações sem conhecimento técnico.</p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border border-white/10">
+          <h3 class="text-lg font-bold text-white mb-2" id="ls-135-1794950473533" data-editable="text">O conteúdo é indicado para iniciantes?</h3>
+          <p class="text-gray-300 text-sm font-light leading-relaxed" id="ls-136-1794950473533" data-editable="text">Sim! Não importa se você está começando agora ou já possui experiência; o objetivo é ajudar você a conhecer novas ferramentas e aplicá-las no trabalho.</p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border border-white/10">
+          <h3 class="text-lg font-bold text-white mb-2" id="ls-137-1794950473533" data-editable="text">Posso aplicar as dicas no meu pequeno negócio?</h3>
+          <p class="text-gray-300 text-sm font-light leading-relaxed" id="ls-138-1794950473533" data-editable="text">Com certeza. O eBook foi pensado justamente para pequenos empreendedores, vendedores e autônomos que desejam melhorar sua rotina comercial.</p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border border-white/10">
+          <h3 class="text-lg font-bold text-white mb-2" id="ls-139-1794950473533" data-editable="text">Como recebo o material após a compra?</h3>
+          <p class="text-gray-300 text-sm font-light leading-relaxed" id="ls-140-1794950473534" data-editable="text">Após a confirmação do pagamento pela Hotmart, você receberá um e-mail com os dados de acesso para baixar o seu eBook digital imediatamente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Chamada Final para Compra -->
+  <section class="py-24 px-6 md:px-12 relative bg-[#0b1322]" id="ls-141-1794950473534" data-editable="section">
+    <div class="max-w-4xl mx-auto text-center space-y-8">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight" id="ls-142-1794950473534" data-editable="text">
+        A inteligência artificial já está transformando a maneira de trabalhar. Comece a descobrir como utilizá-la nas suas vendas.
+      </h2>
+      <div class="pt-4">
+        <a href="https://pay.hotmart.com/S108545555E?off=v473o1xd&amp;hotfeature=51" class="btn-cta font-bold px-10 py-5 rounded-xl text-lg tracking-wide inline-flex items-center justify-center gap-3" id="ls-143-1794950473534" data-editable="cta">
+          QUERO MEU EBOOK AGORA
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Informações de Confiança, Contato e Políticas (Rodapé Profissional) -->
+  <footer class="py-12 px-6 md:px-12 border-t border-white/5 bg-[#070b12] text-xs text-gray-400" id="ls-144-1794950473534" data-editable="section">
+    <div class="max-w-7xl mx-auto space-y-6">
+      
+      <!-- Aviso de Transparência de Resultados -->
+      <div class="p-4 rounded-xl bg-white/5 border border-white/5 text-gray-400 text-center max-w-3xl mx-auto">
+        <p id="ls-145-1794950473534" data-editable="text">"Este eBook tem finalidade educativa. Os resultados dependem da aplicação das estratégias e das condições de cada negócio. Não há garantia de vendas ou ganhos financeiros."</p>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-white/5">
+        <p id="ls-146-1794950473534" data-editable="text">© 2026 Venda IA 30. Todos os direitos reservados.</p>
+        
+        <!-- Link Funcional de Contato e Suporte -->
+        <div class="flex flex-wrap items-center justify-center gap-6 text-gray-400">
+          <button id="open-support-modal" class="hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-0 text-xs text-gray-400 font-sans" data-editable="cta">Contato e suporte ao comprador</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de Suporte -->
+  <div id="support-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden">
+    <div class="glass-card p-8 rounded-3xl border border-white/15 max-w-md w-full relative shadow-2xl bg-[#0b1322]">
+      <button id="close-support-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 transition-colors">
+        ✕
+      </button>
+
+      <div class="text-center space-y-4">
+        <div class="w-12 h-12 rounded-2xl bg-[#0ea5e9]/20 flex items-center justify-center border border-[#0ea5e9]/30 mx-auto text-[#38bdf8]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+
+        <h3 class="text-xl font-bold text-white">Suporte ao Comprador</h3>
+        
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Tem alguma dúvida sobre o seu acesso ou material? Entre em contato diretamente pelo e-mail abaixo:
+        </p>
+
+        <div class="p-3 rounded-xl bg-white/5 border border-white/10 select-all font-mono text-[#38bdf8] text-sm font-semibold tracking-wide">
+          ricardo.ots@hotmail.com
+        </div>
+
+        <div class="pt-2">
+          <button id="copy-email-btn" class="btn-cta w-full font-bold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer">
+            Copiar E-mail
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Zoom/Lightbox para Imagens -->
+  <div id="image-zoom-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md hidden cursor-zoom-out">
+    <div class="relative max-w-5xl max-h-[90vh] p-2">
+      <button id="close-zoom-modal" class="absolute -top-12 right-0 text-white hover:text-[#38bdf8] text-xl font-bold px-3 py-1 rounded-full bg-white/10 border border-white/20 transition-colors">
+        ✕ Fechar
+      </button>
+      <img id="zoomed-image-element" src="" alt="Imagem Ampliada" class="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl border border-white/20 mx-auto">
+    </div>
+  </div>
+
+  <script>
+    // Script para gerenciar a abertura e fechamento da aba/modal de suporte
+    const openModalBtn = document.getElementById('open-support-modal');
+    const closeModalBtn = document.getElementById('close-support-modal');
+    const supportModal = document.getElementById('support-modal');
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+
+    openModalBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      supportModal.classList.remove('hidden');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      supportModal.classList.add('hidden');
+    });
+
+    supportModal.addEventListener('click', (e) => {
+      if (e.target === supportModal) {
+        supportModal.classList.add('hidden');
+      }
+    });
+
+    copyEmailBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('ricardo.ots@hotmail.com');
+      const originalText = copyEmailBtn.innerHTML;
+      copyEmailBtn.innerHTML = 'E-mail Copiado!';
+      setTimeout(() => {
+        copyEmailBtn.innerHTML = originalText;
+      }, 2000);
+    });
+
+    // Script para Lightbox / Zoom de Imagens
+    const zoomableImages = document.querySelectorAll('[data-zoomable]');
+    const zoomModal = document.getElementById('image-zoom-modal');
+    const zoomedImg = document.getElementById('zoomed-image-element');
+    const closeZoomBtn = document.getElementById('close-zoom-modal');
+
+    zoomableImages.forEach(img => {
+      img.addEventListener('click', () => {
+        zoomedImg.src = img.src;
+        zoomModal.classList.remove('hidden');
+      });
+    });
+
+    const closeZoom = () => {
+      zoomModal.classList.add('hidden');
+      zoomedImg.src = '';
+    };
+
+    closeZoomBtn.addEventListener('click', closeZoom);
+    zoomModal.addEventListener('click', (e) => {
+      if (e.target === zoomModal) {
+        closeZoom();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeZoom();
+        supportModal.classList.add('hidden');
+      }
+    });
+  </script>
+
+
+
+  <!-- Preferências de análise: opção disponível a qualquer momento -->
+  <style>
+    #analytics-consent-banner[hidden] { display: none !important; }
+    #analytics-consent-banner { position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 99999; max-width: 650px; margin: auto; padding: 18px; border-radius: 16px; background: #142335; border: 1px solid #456275; color: #f5fbff; box-shadow: 0 14px 45px rgba(0,0,0,.50); font: 400 14px/1.5 Arial,sans-serif; }
+    #analytics-consent-banner strong { font-weight: 700; }
+    .analytics-consent-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .analytics-consent-actions button { border: 1px solid #8cd8ca; border-radius: 9px; padding: 10px 17px; background: #123145; color: #fff; cursor: pointer; font-weight: 700; }
+    .analytics-consent-actions #analytics-consent-accept { background: #20b89f; color: #05242a; border-color: #20b89f; }
+    #analytics-consent-preferences { position: fixed; z-index: 99998; bottom: 0; right: 0; padding: 6px 10px; background: #142335; color: #daffff; font: 12px Arial,sans-serif; border: 1px solid #456275; border-radius: 8px 0 0 0; cursor: pointer; }
+  </style>
+  <section id="analytics-consent-banner" role="dialog" aria-label="Preferências de privacidade" hidden>
+    <strong>Privacidade e análise de visitas</strong>
+    <p>Podemos usar o Google Analytics para medir acessos e cliques no checkout. Esses dados nos ajudam a melhorar a página. Você pode aceitar ou recusar, e mudar sua escolha depois em “Privacidade”.</p>
+    <div class="analytics-consent-actions">
+      <button type="button" id="analytics-consent-accept">Aceitar análise</button>
+      <button type="button" id="analytics-consent-decline">Recusar</button>
+    </div>
+  </section>
+  <button type="button" id="analytics-consent-preferences" aria-label="Alterar consentimento de análise">Privacidade</button>
+
+</body>
+</html>
